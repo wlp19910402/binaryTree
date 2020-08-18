@@ -118,7 +118,7 @@ function BinaryTree () {
   this.search = function (key) {
     return searchNode(root, key)
   }
-  //移除节点
+  //查找某个节点
   var findMinNode = function (node) {
     if (node) {
       while (node && node.left !== null) {
@@ -128,6 +128,7 @@ function BinaryTree () {
     }
     return null
   }
+  //移除节点
   var removeNode = function (node, key) {
     if (node === null) {
       return null;
@@ -166,8 +167,16 @@ function BinaryTree () {
     root = removeNode(root, key)
     console.log(root)//前后对比
   }
-
-
+  //最大的深度
+  var maxDeepNode = (node) => {
+    if (node === null) {
+      return 0;
+    }
+    return Math.max(maxDeepNode(node.left), maxDeepNode(node.right)) + 1
+  }
+  this.maxDeep = () => {
+    return maxDeepNode(root)
+  }
 }
 
 var nodes = [ 8, 3, 10, 1, 6, 14, 4, 7, 13 ]
@@ -207,3 +216,6 @@ console.log(binaryTree.search(5), "--是否存在4节点")
 
 //移除中间节点
 binaryTree.remove(6)
+
+//获取节点深度
+console.log(binaryTree.maxDeep(), "--二叉树最大的深度")
